@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>451931728460-dgik8rk5kc1g41bl69psnt4ptpk5iamf.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.451931728460-dgik8rk5kc1g41bl69psnt4ptpk5iamf</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBp2lIVUEXqeBU9rd5q16y3KKgVJ9Xz6sM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>451931728460</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.vortez.SupermarketApp</string>
+	<key>PROJECT_ID</key>
+	<string>supermarket-app-8ea97</string>
+	<key>STORAGE_BUCKET</key>
+	<string>supermarket-app-8ea97.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:451931728460:ios:1392dc6c2a89253d01a2e9</string>
+</dict>
+</plist>
