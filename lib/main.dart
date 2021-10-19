@@ -672,7 +672,7 @@ class _HomescreenState extends State<Homescreen> {
                   width: double.infinity,
                   child: StreamBuilder(
                     stream: FirebaseFirestore.instance
-                        .collection("slider")
+                        .collection("bottomslider")
                         .snapshots(),
                     builder:
                         (context, AsyncSnapshot<QuerySnapshot> stramSnapshot) {
