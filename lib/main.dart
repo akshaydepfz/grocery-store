@@ -190,7 +190,7 @@ class _HomescreenState extends State<Homescreen> {
                   ),
                 ),
 
-                //Imaage Slider
+                //Image Slider
 
                 Container(
                   decoration: BoxDecoration(
