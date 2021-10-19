@@ -30,6 +30,8 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+
+  
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
@@ -97,5 +99,24 @@
       loadMainDartJs();
     }
   </script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
+  <script>
+    //Replace with your config data
+    var firebaseConfig = {
+      apiKey: "AIzaSyA_CETkvzJkGeR4jFG2k9DDvUooxB0gfNc",
+      authDomain: "supermarket-app-8ea97.firebaseapp.com",
+      projectId: "supermarket-app-8ea97",
+      storageBucket: "supermarket-app-8ea97.appspot.com",
+      messagingSenderId: "451931728460",
+      appId: "1:451931728460:web:d7250dcc3a08190701a2e9",
+      measurementId: "G-SRRXN2CGS5"
+    };
+      
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    </script>
 </body>
 </html>

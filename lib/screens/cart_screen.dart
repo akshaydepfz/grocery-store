@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
@@ -97,6 +98,7 @@ class _CartScreenState extends State<CartScreen> {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: 1,
         onPressed: () async {
           print("object");
           final sampleData = productList
@@ -130,126 +132,143 @@ class _CartScreenState extends State<CartScreen> {
         elevation: 0,
         title: Text('My cart'),
       ),
-      body: ListView.builder(
-          itemCount: productList.length,
-          itemBuilder: (ctx, index) {
-            double price = productList[index].productQuantity *
-                productList[index].productPrice;
-            return Container(
-              padding: EdgeInsets.all(10.0),
-              height: 180,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    height: 130,
-                    width: 130,
-                    decoration: BoxDecoration(
-                      color: Colors.orangeAccent.shade100,
-                      borderRadius: BorderRadius.circular(20.0),
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(productList[index].prodectImage),
-                      ),
-                    ),
+      body: Stack(
+        children: [
+          kIsWeb
+              ? Positioned(
+                  bottom: 15,
+                  left: 15,
+                  child: FloatingActionButton.extended(
+                      heroTag: 2,
+                      onPressed: () {},
+                      label: Text('Download the app now')),
+                )
+              : SizedBox(),
+          ListView.builder(
+              itemCount: productList.length,
+              itemBuilder: (ctx, index) {
+                double price = productList[index].productQuantity *
+                    productList[index].productPrice;
+                return Container(
+                  padding: EdgeInsets.all(10.0),
+                  height: 180,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                productList[index].productName,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () async {
-                                  final SharedPreferences prefs =
-                                      await SharedPreferences.getInstance();
-
-                                  setState(() {
-                                    productList.removeAt(index);
-                                  });
-                                  await prefs.setString(
-                                      'list', ProductModel.encode(productList));
-                                },
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
-                                ),
-                              ),
-                            ],
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 130,
+                        width: 130,
+                        decoration: BoxDecoration(
+                          color: Colors.orangeAccent.shade100,
+                          borderRadius: BorderRadius.circular(20.0),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image:
+                                NetworkImage(productList[index].prodectImage),
                           ),
                         ),
-                        Row(
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            TextButton(
-                              onPressed: () async {
-                                if (productList[index].productQuantity > 1) {
-                                  setState(() {
-                                    productList[index].productQuantity--;
-                                  });
-                                  final SharedPreferences prefs =
-                                      await SharedPreferences.getInstance();
-                                  await prefs.setString(
-                                      'list', ProductModel.encode(productList));
-                                }
-                              },
-                              child: Icon(Icons.remove),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    productList[index].productName,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () async {
+                                      final SharedPreferences prefs =
+                                          await SharedPreferences.getInstance();
+
+                                      setState(() {
+                                        productList.removeAt(index);
+                                      });
+                                      await prefs.setString('list',
+                                          ProductModel.encode(productList));
+                                    },
+                                    icon: Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                            Text(
-                              productList[index].productQuantity.toString(),
-                              style: TextStyle(fontSize: 18),
+                            Row(
+                              children: [
+                                TextButton(
+                                  onPressed: () async {
+                                    if (productList[index].productQuantity >
+                                        1) {
+                                      setState(() {
+                                        productList[index].productQuantity--;
+                                      });
+                                      final SharedPreferences prefs =
+                                          await SharedPreferences.getInstance();
+                                      await prefs.setString('list',
+                                          ProductModel.encode(productList));
+                                    }
+                                  },
+                                  child: Icon(Icons.remove),
+                                ),
+                                Text(
+                                  productList[index].productQuantity.toString(),
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                TextButton(
+                                  onPressed: () async {
+                                    setState(() {
+                                      productList[index].productQuantity++;
+                                    });
+                                    final SharedPreferences prefs =
+                                        await SharedPreferences.getInstance();
+                                    await prefs.setString('list',
+                                        ProductModel.encode(productList));
+                                  },
+                                  child: Icon(Icons.add),
+                                ),
+                              ],
                             ),
-                            TextButton(
-                              onPressed: () async {
-                                setState(() {
-                                  productList[index].productQuantity++;
-                                });
-                                final SharedPreferences prefs =
-                                    await SharedPreferences.getInstance();
-                                await prefs.setString(
-                                    'list', ProductModel.encode(productList));
-                              },
-                              child: Icon(Icons.add),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Row(
-                          children: [
                             SizedBox(
-                              width: 120.w,
+                              height: 20.h,
                             ),
-                            Text(
-                              'AED ${price.toStringAsFixed(2)}',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 120.w,
+                                ),
+                                Text(
+                                  'AED ${price.toStringAsFixed(2)}',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            );
-          }),
+                );
+              }),
+        ],
+      ),
     );
   }
 }
