@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductModel {
@@ -17,6 +16,16 @@ class ProductModel {
     required this.productPrice,
     required this.productsubtitle,
   });
+
+  List<ProductModel> productList = [];
+  pref() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? cartList = await prefs.getString('list');
+    productList = ProductModel.decode(cartList!);
+    productList.forEach((element) {
+      element.productQuantity;
+    });
+  }
 
   factory ProductModel.fromJson(dynamic jsonData) {
     return ProductModel(
