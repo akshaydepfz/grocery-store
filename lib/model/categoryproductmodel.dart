@@ -21,6 +21,7 @@ class CategoryProductModel {
     required this.productCategory,
     required this.productId,
   });
+
   factory CategoryProductModel.fromJson(dynamic jsonData) {
     return CategoryProductModel(
       prodectImage: jsonData['productImage'],

@@ -110,7 +110,7 @@ class _CartScreenState extends State<CartScreen> {
       floatingActionButton: FloatingActionButton.extended(
         heroTag: 1,
         onPressed: () async {
-          print("object");
+          print('Product List :${productList}');
           String TestData = "";
           double totalprice = 0;
           int index = 1;
