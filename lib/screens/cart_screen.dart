@@ -33,6 +33,7 @@ class _CartScreenState extends State<CartScreen> {
   List<ProductModel> productList = [];
 
   void addListSharedPreferences() async {
+    final int Q = widget.quantity;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? cartList = await prefs.getString('list');
     print(cartList);
@@ -52,7 +53,7 @@ class _CartScreenState extends State<CartScreen> {
         });
         productList.add(ProductModel(
           prodectImage: widget.image,
-          productQuantity: widget.quantity,
+          productQuantity: Q,
           productName: widget.productname,
           productPrice: widget.price,
           productsubtitle: widget.productsubtitle,
@@ -65,7 +66,7 @@ class _CartScreenState extends State<CartScreen> {
       } else {
         newList.add(ProductModel(
           prodectImage: widget.image,
-          productQuantity: widget.quantity,
+          productQuantity: Q,
           productName: widget.productname,
           productPrice: widget.price,
           productsubtitle: widget.productsubtitle,
@@ -92,7 +93,16 @@ class _CartScreenState extends State<CartScreen> {
     // int quantity = 1;
 
     void launchWhatsapp({required number, required message}) async {
-      String url = 'whatsapp://send?phone=$number&text=$message';
+      String finalmsg = message.toString();
+      finalmsg = finalmsg.replaceAll("[{", "");
+      finalmsg = finalmsg.replaceAll("}]", "");
+      finalmsg = finalmsg.replaceAll("}", "");
+      finalmsg = finalmsg.replaceAll("{", "");
+      finalmsg = finalmsg.replaceAll(",", "");
+      finalmsg = finalmsg.replaceAll(":", "");
+
+      print(finalmsg);
+      String url = 'whatsapp://send?phone=$number&text=$finalmsg';
       await canLaunch(url) ? launch(url) : print('cant  open Whatsapp');
     }
 
@@ -101,6 +111,23 @@ class _CartScreenState extends State<CartScreen> {
         heroTag: 1,
         onPressed: () async {
           print("object");
+          String TestData = "";
+          double totalprice = 0;
+          int index = 1;
+          productList.forEach((element) {
+            TestData += "%0aProduct " +
+                index.toString() +
+                "%0a" +
+                element.productName +
+                "%0a Price :" +
+                element.productPrice.toString() +
+                "%0a Quantity :" +
+                element.productQuantity.toString() +
+                "%0a____________________________";
+            index = index + 1;
+            totalprice += (element.productPrice * element.productQuantity);
+          });
+          TestData += "%0a Total Price :" + totalprice.toString();
           final sampleData = productList
               .map((h) => {
                     "\n ": '*Product*',
@@ -111,7 +138,7 @@ class _CartScreenState extends State<CartScreen> {
                   })
               .toList();
 
-          launchWhatsapp(number: '+919946152058', message: sampleData);
+          launchWhatsapp(number: '+919946152058', message: TestData);
           final SharedPreferences prefs = await SharedPreferences.getInstance();
 
           setState(() {

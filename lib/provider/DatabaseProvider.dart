@@ -10,6 +10,7 @@ class DatabaseProvider with ChangeNotifier {
 
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection("FlashSaleList").get();
+
     querySnapshot.docs.forEach((element) {
       model = ProductModel.fromJson(element);
       newflashSaleList.add(model);

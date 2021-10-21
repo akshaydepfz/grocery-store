@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class ProductModel {
   final String prodectImage;
   final String productName;
@@ -15,6 +17,7 @@ class ProductModel {
     required this.productPrice,
     required this.productsubtitle,
   });
+
   factory ProductModel.fromJson(dynamic jsonData) {
     return ProductModel(
       productoldprice: jsonData['productoldprice'],
